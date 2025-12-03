@@ -1,4 +1,4 @@
-package openaigolb
+package openailb
 
 import (
 	"context"
