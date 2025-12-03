@@ -67,7 +67,7 @@ func TestLBRoundRobin(t *testing.T) {
 	}
 }
 
-func TestLBCircuitBreaker(t *testing.T) {
+func TestLBCircuitBreakerWithDefaultOption(t *testing.T) {
 	t.Parallel()
 
 	failServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
