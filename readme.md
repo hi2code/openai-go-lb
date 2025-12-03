@@ -7,7 +7,7 @@ A load balancer for the OpenAI Go client that provides failover and round-robin 
 
 ## Features
 
-- **Drop-in Replacement**: Easily replace the standard `openai.Client` with `openailb.LBOpenaiClient` without changing your existing code.
+- **Drop-in Replacement**: Easily replace the standard `openai.Client` with `openailb.Client` without changing your existing code.
 - **Round-Robin Load Balancing**: Distributes requests evenly across multiple OpenAI API keys.
 - **Automatic Failover**: Uses a circuit breaker to detect and bypass unhealthy nodes, ensuring high availability.
 - **Customizable Circuit Breaker**: Tune the circuit breaker settings to match your specific needs.
@@ -46,7 +46,7 @@ func main() {
 	}
 
 	// 2. Create a new load balancer client
-	client := openailb.NewLBOpenaiClient(configs)
+	client := openailb.NewClient(configs)
 
 	// 3. Make requests as you would with the standard OpenAI client
 	params := openai.ChatCompletionNewParams{
@@ -99,7 +99,7 @@ func main() {
 	}
 
 	// Create a new client with the custom settings
-	client := openailb.NewLBOpenaiClient(configs, openailb.WithCBSettings(customSettings))
+	client := openailb.NewClient(configs, openailb.WithCBSettings(customSettings))
 
 	// ... make requests
 }
@@ -132,7 +132,7 @@ func main() {
 		{APIKey: "YOUR_API_KEY_2",BaseURL:"https://openrouter.ai/api/v1"},
 	}
 
-	client := openailb.NewLBOpenaiClient(configs)
+	client := openailb.NewClient(configs)
 
 	// This request will be routed to "gpt-4" when using the first client.
 	params := openai.ChatCompletionNewParams{

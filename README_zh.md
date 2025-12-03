@@ -4,7 +4,7 @@
 
 ## 功能特性
 
-- **无缝替换**: 无需更改现有代码，即可轻松将标准 `openai.Client` 替换为 `openailb.LBOpenaiClient`。
+- **无缝替换**: 无需更改现有代码，即可轻松将标准 `openai.Client` 替换为 `openailb.Client`。
 - **轮询负载均衡**: 将请求均匀地分配到多个 OpenAI API 密钥。
 - **自动故障转移**: 使用断路器来检测和绕过不健康的节点，确保高可用性。
 - **可定制的断路器**: 调整断路器设置以满足您的特定需求。
@@ -43,7 +43,7 @@ func main() {
 	}
 
 	// 2. 创建一个新的负载均衡器客户端
-	client := openailb.NewLBOpenaiClient(configs)
+	client := openailb.NewClient(configs)
 
 	// 3. 像使用标准 OpenAI 客户端一样发出请求
 	params := openai.ChatCompletionNewParams{
@@ -96,7 +96,7 @@ func main() {
 	}
 
 	// 使用自定义设置创建一个新的客户端
-	client := openailb.NewLBOpenaiClient(configs, openailb.WithCBSettings(customSettings))
+	client := openailb.NewClient(configs, openailb.WithCBSettings(customSettings))
 
 	// ... 发出请求
 }
@@ -129,7 +129,7 @@ func main() {
 		{APIKey: "您的_API_密钥_2",BaseURL:"https://api.openai.com/v1"},
 	}
 
-	client := openailb.NewLBOpenaiClient(configs)
+	client := openailb.NewClient(configs)
 
 	// 当使用第一个客户端时，此请求将被路由到 "gpt-4"
 	params := openai.ChatCompletionNewParams{

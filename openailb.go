@@ -88,18 +88,20 @@ func NewClient(configs []OpenaiClientConfig, opts ...LBOption) *Client {
 			option.WithBaseURL(cfg.BaseURL),
 		)
 
-		// 3. 复制配置 (关键点)
-		// 因为我们要修改 Name，必须复制一份，否则所有 Client 会共享同一个 Name，
-		// 或者循环的下一次迭代会覆盖上一次的名字。
+		// 3. Copy the configuration (Key Point)
+		// We must copy the settings because we are modifying the Name.
+		// Otherwise, all clients would share the same Name,
+		// or the next iteration of the loop would overwrite the previous Name.
 		currentSt := options.cbSettings
 		currentSt.Name = fmt.Sprintf("Client-%d", i)
 
-		// 如果用户自定义了 settings 但没有设置 ReadyToTrip，需要给一个兜底，否则 gobreaker 可能会 panic 或者不工作
+		// If the user has defined custom settings but has not set ReadyToTrip,
+		// we need to provide a fallback to prevent gobreaker from panicking or not working correctly.
 		if currentSt.ReadyToTrip == nil {
 			currentSt.ReadyToTrip = defaultCBSettings.ReadyToTrip
 		}
 
-		// 创建断路器
+		// Create the circuit breaker.
 		cb := gobreaker.NewCircuitBreaker[*openai.ChatCompletion](currentSt)
 
 		clients = append(clients, &SafeClient{
