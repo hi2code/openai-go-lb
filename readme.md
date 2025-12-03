@@ -3,7 +3,7 @@
 
 [简体中文](README_zh.md) | English
 
-A load balancer for the OpenAI Go client that provides failover and round-robin capabilities. This library is designed as a drop-in replacement for the standard OpenAI Go client, allowing you to seamlessly switch to a more resilient and scalable solution.
+A load balancer for the OpenAI Go client that provides failover and round-robin capabilities. This library is built on top of `github.com/openai/openai-go/v3` and is designed as a drop-in replacement for the standard OpenAI Go client, allowing you to seamlessly switch to a more resilient and scalable solution.
 
 ## Features
 
