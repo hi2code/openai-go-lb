@@ -49,8 +49,8 @@ type SafeClient struct {
 	BaseURL  string // Used for testing and logging.
 }
 
-// LBOpenaiClient is the outermost layer, mimicking openai.Client.
-type LBOpenaiClient struct {
+// Client is the outermost layer, mimicking openai.Client.
+type Client struct {
 	Chat *LBChatService
 }
 
@@ -71,7 +71,7 @@ type OpenaiClientConfig struct {
 	ModelMap map[string]string // Optionally specify model mapping.
 }
 
-func NewLBOpenaiClient(configs []OpenaiClientConfig, opts ...LBOption) *LBOpenaiClient {
+func NewClient(configs []OpenaiClientConfig, opts ...LBOption) *Client {
 	// Initialize default options
 	options := lbOptions{
 		cbSettings: defaultCBSettings,
@@ -116,7 +116,7 @@ func NewLBOpenaiClient(configs []OpenaiClientConfig, opts ...LBOption) *LBOpenai
 	completionsSvc := &LBCompletionsService{lb: lb}
 	chatSvc := &LBChatService{Completions: completionsSvc}
 
-	return &LBOpenaiClient{
+	return &Client{
 		Chat: chatSvc,
 	}
 }

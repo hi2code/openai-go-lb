@@ -31,7 +31,7 @@ func TestLBRoundRobin(t *testing.T) {
 		{APIKey: "mock-key-2", BaseURL: mockOkServer2.URL},
 	}
 
-	client := NewLBOpenaiClient(configs)
+	client := NewClient(configs)
 
 	params := openai.ChatCompletionNewParams{
 		Model: "test_model",
@@ -98,7 +98,7 @@ func TestLBCircuitBreakerWithDefaultOption(t *testing.T) {
 		{APIKey: "fail-key", BaseURL: failServer.URL},
 		{APIKey: "ok-key", BaseURL: okServer.URL},
 	}
-	lb := NewLBOpenaiClient(lbConfigs)
+	lb := NewClient(lbConfigs)
 
 	params := openai.ChatCompletionNewParams{
 		Model: "any-model",
@@ -170,7 +170,7 @@ func TestLBCustomOptions(t *testing.T) {
 	}
 
 	// 4. Initialize LB with the Option
-	client := NewLBOpenaiClient(configs, WithCBSettings(customSettings))
+	client := NewClient(configs, WithCBSettings(customSettings))
 
 	params := openai.ChatCompletionNewParams{
 		Model: "test_model",
