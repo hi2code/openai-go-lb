@@ -71,7 +71,7 @@ type OpenaiClientConfig struct {
 	ModelMap map[string]string // Optionally specify model mapping.
 }
 
-func NewClient(configs []OpenaiClientConfig, opts ...LBOption) *Client {
+func NewClient(configs []OpenaiClientConfig, opts ...LBOption) Client {
 	// Initialize default options
 	options := lbOptions{
 		cbSettings: defaultCBSettings,
@@ -118,7 +118,7 @@ func NewClient(configs []OpenaiClientConfig, opts ...LBOption) *Client {
 	completionsSvc := &LBCompletionsService{lb: lb}
 	chatSvc := &LBChatService{Completions: completionsSvc}
 
-	return &Client{
+	return Client{
 		Chat: chatSvc,
 	}
 }
