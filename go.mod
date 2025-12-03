@@ -1,4 +1,4 @@
-module openai-go-lb
+module github.com/hi2code/openai-go-lb
 
 go 1.22.2
 
